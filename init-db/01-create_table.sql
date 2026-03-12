@@ -1,47 +1,93 @@
 -- ==========================================
--- 1. TEACHER TABLE
+-- 1. טבלת מטופלים (PATIENT)
 -- ==========================================
-CREATE TABLE TEACHER (
-    -- Using VARCHAR(9) to support Israeli IDs (Teudat Zehut) with leading zeros
-    T_ID VARCHAR(9) PRIMARY KEY CHECK (T_ID ~ '^[0-9]{9}$'), 
-    Name VARCHAR(100) NOT NULL,
-    Phone VARCHAR(15) NOT NULL UNIQUE,
-    Mail VARCHAR(255) UNIQUE,
-    
-    -- Constraint: Basic format check for email
-    CONSTRAINT valid_email CHECK (Mail ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+CREATE TABLE PATIENT
+(
+  patient_id    numeric NOT NULL,
+  phone         varchar2(20) NOT NULL,
+  gender        varchar2(20) NOT NULL,
+  date_of_birth date NOT NULL,
+  last_name     varchar2(50) NOT NULL,
+  first_name    varchar2(50) NOT NULL,
+  address       varchar2(200),
+  email         varchar2(100),
+  PRIMARY KEY (patient_id),
+  CONSTRAINT chk_patient_dob CHECK (date_of_birth < SYSDATE),
+  CONSTRAINT chk_patient_gender CHECK (gender IN ('Male', 'Female', 'Other'))
 );
 
-COMMENT ON TABLE TEACHER IS 'Registered kindergarten staff and teachers.';
-
 -- ==========================================
--- 2. CHILD TABLE
+-- 2. (PATIENT_INSURANCE)
 -- ==========================================
-CREATE TABLE CHILD (
-    -- Child's Israeli ID (Teudat Zehut)
-    C_ID VARCHAR(9) PRIMARY KEY CHECK (C_ID ~ '^[0-9]{9}$'), 
-    Name VARCHAR(100) NOT NULL,
-    ParentPhone VARCHAR(15) NOT NULL,
-    BirthDate DATE NOT NULL,
-    
-    -- BINARY GENDER CONSTRAINT: Only 'M' (Male) or 'F' (Female) allowed
-    Gender CHAR(1) NOT NULL CHECK (Gender IN ('M', 'F')),
-    
-    Allergies TEXT DEFAULT 'None',
-    T_ID VARCHAR(9) NOT NULL, -- Must match the type of TEACHER.T_ID
-    
-    -- Constraint: Gan Age Range (Usually between 2.5 and 7 years old)
-    CONSTRAINT gan_age_check CHECK (
-        BirthDate > CURRENT_DATE - INTERVAL '7 years' AND 
-        BirthDate < CURRENT_DATE - INTERVAL '2 years'
-    ),
-    
-    -- Constraint: Israeli Phone format (Starts with 0, total 9-10 digits)
-    CONSTRAINT valid_parent_phone CHECK (ParentPhone ~ '^0[0-9]{8,9}$'),
-
-    -- Relationship: A child must be assigned to an existing teacher
-    FOREIGN KEY (T_ID) REFERENCES TEACHER(T_ID) ON DELETE RESTRICT
+CREATE TABLE PATIENT_INSURANCE
+(
+  insurance_id    numeric NOT NULL,
+  provider_name   varchar2(100) NOT NULL,
+  policy_number   varchar2(50) NOT NULL,
+  coverage_type   varchar2(50),
+  expiration_date date NOT NULL,
+  patient_id      numeric NOT NULL,
+  PRIMARY KEY (insurance_id),
+  FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id)
 );
 
-COMMENT ON COLUMN CHILD.Gender IS 'Strict binary selection: M for Male, F for Female.';
-COMMENT ON COLUMN CHILD.C_ID IS '9-digit Teudat Zehut of the child.';
+-- ==========================================
+-- 3. (ADMISSION)
+-- ==========================================
+CREATE TABLE ADMISSION
+(
+  admission_id   numeric NOT NULL,
+  admission_date date NOT NULL,
+  discharge_date date,
+  admission_type varchar2(50) NOT NULL,
+  reason         varchar2(500),
+  patient_id     numeric NOT NULL,
+  PRIMARY KEY (admission_id),
+  FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
+  CONSTRAINT chk_admission_dates CHECK (discharge_date IS NULL OR discharge_date >= admission_date),
+  CONSTRAINT chk_adm_type CHECK (admission_type IN ('Emergency', 'Elective', 'Urgent'))
+);
+
+-- ==========================================
+-- 4. (EMERGENCY_CONTACT)
+-- ==========================================
+CREATE TABLE EMERGENCY_CONTACT
+(
+  contact_id numeric NOT NULL,
+  name       varchar2(100) NOT NULL,
+  relationship varchar2(50),
+  phone      varchar2(20) NOT NULL,
+  patient_id numeric NOT NULL,
+  PRIMARY KEY (contact_id),
+  FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id)
+);
+
+-- ==========================================
+-- 5. (PATIENT_ALLERGY)
+-- ==========================================
+CREATE TABLE PATIENT_ALLERGY
+(
+  allergy_id   numeric NOT NULL,
+  allergy_name varchar2(100) NOT NULL,
+  severity     varchar2(50),
+  notes        varchar2(500),
+  patient_id   numeric NOT NULL,
+  PRIMARY KEY (allergy_id),
+  FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
+  CONSTRAINT chk_allergy_sev CHECK (severity IN ('Mild', 'Moderate', 'Severe', 'Unknown'))
+);
+
+-- ==========================================
+-- 6. (PATIENT_MEDICAL_HISTORY)
+-- ==========================================
+CREATE TABLE PATIENT_MEDICAL_HISTORY
+(
+  history_id     numeric NOT NULL,
+  condition      varchar2(100) NOT NULL,
+  diagnosis_date date NOT NULL,
+  notes          varchar2(500),
+  patient_id     numeric NOT NULL,
+  PRIMARY KEY (history_id),
+  FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
+  CONSTRAINT chk_history_date CHECK (diagnosis_date <= SYSDATE)
+);
