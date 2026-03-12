@@ -1,18 +1,18 @@
 -- ==========================================
--- 1. טבלת מטופלים (PATIENT)
+-- 1. (PATIENT)
 -- ==========================================
 CREATE TABLE PATIENT
 (
   patient_id    numeric NOT NULL,
-  phone         varchar2(20) NOT NULL,
-  gender        varchar2(20) NOT NULL,
+  phone         varchar(20) NOT NULL,
+  gender        varchar(20) NOT NULL,
   date_of_birth date NOT NULL,
-  last_name     varchar2(50) NOT NULL,
-  first_name    varchar2(50) NOT NULL,
-  address       varchar2(200),
-  email         varchar2(100),
+  last_name     varchar(50) NOT NULL,
+  first_name    varchar(50) NOT NULL,
+  address       varchar(200),
+  email         varchar(100),
   PRIMARY KEY (patient_id),
-  CONSTRAINT chk_patient_dob CHECK (date_of_birth < SYSDATE),
+  CONSTRAINT chk_patient_dob CHECK (date_of_birth < CURRENT_DATE),
   CONSTRAINT chk_patient_gender CHECK (gender IN ('Male', 'Female', 'Other'))
 );
 
@@ -22,9 +22,9 @@ CREATE TABLE PATIENT
 CREATE TABLE PATIENT_INSURANCE
 (
   insurance_id    numeric NOT NULL,
-  provider_name   varchar2(100) NOT NULL,
-  policy_number   varchar2(50) NOT NULL,
-  coverage_type   varchar2(50),
+  provider_name   varchar(100) NOT NULL,
+  policy_number   varchar(50) NOT NULL,
+  coverage_type   varchar(50),
   expiration_date date NOT NULL,
   patient_id      numeric NOT NULL,
   PRIMARY KEY (insurance_id),
@@ -39,8 +39,8 @@ CREATE TABLE ADMISSION
   admission_id   numeric NOT NULL,
   admission_date date NOT NULL,
   discharge_date date,
-  admission_type varchar2(50) NOT NULL,
-  reason         varchar2(500),
+  admission_type varchar(50) NOT NULL,
+  reason         varchar(500),
   patient_id     numeric NOT NULL,
   PRIMARY KEY (admission_id),
   FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
@@ -54,9 +54,9 @@ CREATE TABLE ADMISSION
 CREATE TABLE EMERGENCY_CONTACT
 (
   contact_id numeric NOT NULL,
-  name       varchar2(100) NOT NULL,
-  relationship varchar2(50),
-  phone      varchar2(20) NOT NULL,
+  name       varchar(100) NOT NULL,
+  relationship varchar(50),
+  phone      varchar(20) NOT NULL,
   patient_id numeric NOT NULL,
   PRIMARY KEY (contact_id),
   FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id)
@@ -68,9 +68,9 @@ CREATE TABLE EMERGENCY_CONTACT
 CREATE TABLE PATIENT_ALLERGY
 (
   allergy_id   numeric NOT NULL,
-  allergy_name varchar2(100) NOT NULL,
-  severity     varchar2(50),
-  notes        varchar2(500),
+  allergy_name varchar(100) NOT NULL,
+  severity     varchar(50),
+  notes        varchar(500),
   patient_id   numeric NOT NULL,
   PRIMARY KEY (allergy_id),
   FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
@@ -83,11 +83,11 @@ CREATE TABLE PATIENT_ALLERGY
 CREATE TABLE PATIENT_MEDICAL_HISTORY
 (
   history_id     numeric NOT NULL,
-  condition      varchar2(100) NOT NULL,
+  condition      varchar(100) NOT NULL,
   diagnosis_date date NOT NULL,
-  notes          varchar2(500),
+  notes          varchar(500),
   patient_id     numeric NOT NULL,
   PRIMARY KEY (history_id),
   FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id),
-  CONSTRAINT chk_history_date CHECK (diagnosis_date <= SYSDATE)
+  CONSTRAINT chk_history_date CHECK (diagnosis_date <= CURRENT_DATE)
 );
