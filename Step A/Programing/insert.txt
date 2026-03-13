@@ -1,0 +1,12 @@
+
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
+VALUES (999901, 'Hadas', 'Shor', '1998-05-20', 'Female', '054-1234567', 'hadas@example.com');
+
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
+VALUES (999902, 'Israel', 'Israeli', '1980-10-15', 'Male', '052-7654321', 'israel@example.com');
+
+INSERT INTO ADMISSION (admission_id, patient_id, admission_date, admission_type, reason) 
+VALUES (888801, 999901, '2026-01-10', 'Elective', 'General Surgery');
+
+INSERT INTO ADMISSION (admission_id, patient_id, admission_date, admission_type, reason) 
+VALUES (888802, 999902, '2026-02-15', 'Emergency', 'Flu Symptoms');

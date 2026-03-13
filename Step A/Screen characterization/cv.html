@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedFlow | Patient Management System</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #f4f7f6;
+            --dark: #2c3e50;
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { margin: 0; display: flex; height: 100vh; background-color: var(--light); }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .logo {
+            padding: 0 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #3e4f5f;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item:hover { background: #34495e; }
+        .nav-item.active { background: var(--secondary); color: white; }
+
+        /* Main Content */
+        #main-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .view { display: none; animation: fadeIn 0.4s; }
+        .view.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Dashboard Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card h3 { margin-top: 0; color: #7f8c8d; font-size: 14px; text-transform: uppercase; }
+        .card .value { font-size: 28px; font-weight: bold; color: var(--dark); }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; color: var(--dark); }
+
+        /* Form Styling */
+        .form-container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: var(--secondary);
+            color: white;
+            font-weight: bold;
+        }
+
+        button:hover { opacity: 0.9; }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div class="logo">MedFlow PMS</div>
+        <div class="nav-item active" onclick="switchView('dashboard')">Dashboard</div>
+        <div class="nav-item" onclick="switchView('patient-list')">Patient List</div>
+        <div class="nav-item" onclick="switchView('new-admission')">New Admission</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+        
+        <!-- DASHBOARD VIEW -->
+        <div id="dashboard" class="view active">
+            <h1>System Overview</h1>
+            <div class="stats-grid">
+                <div class="card">
+                    <h3>Total Patients</h3>
+                    <div class="value" id="stat-total-patients">0</div>
+                </div>
+                <div class="card">
+                    <h3>Active Admissions</h3>
+                    <div class="value" id="stat-active-admissions">0</div>
+                </div>
+                <div class="card">
+                    <h3>Emergency Alerts</h3>
+                    <div class="value" id="stat-alerts" style="color: var(--danger)">2</div>
+                </div>
+            </div>
+            
+            <h3>Recent Activity</h3>
+            <table id="recent-activity-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient</th>
+                        <th>Event</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="dashboard-recent-body">
+                    <!-- Dynamic -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PATIENT LIST VIEW -->
+        <div id="patient-list" class="view">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>Patient Directory</h1>
+                <button onclick="switchView('new-admission')">+ New Admission</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>Insurance</th>
+                    </tr>
+                </thead>
+                <tbody id="patient-list-body">
+                    <!-- Dynamic -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NEW ADMISSION VIEW -->
+        <div id="new-admission" class="view">
+            <h1>New Patient Admission</h1>
+            <div class="form-container">
+                <form id="admission-form">
+                    <div class="form-group">
+                        <label>Select Patient</label>
+                        <select id="adm-patient-id" required>
+                            <!-- Dynamic -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Type</label>
+                        <select id="adm-type" required>
+                            <option value="Emergency">Emergency</option>
+                            <option value="Outpatient">Outpatient</option>
+                            <option value="Inpatient">Inpatient</option>
+                            <option value="Observation">Observation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Date</label>
+                        <input type="date" id="adm-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason for Admission</label>
+                        <textarea id="adm-reason" rows="4" placeholder="Enter clinical notes..." required></textarea>
+                    </div>
+                    <button type="submit">Complete Admission</button>
+                    <button type="button" style="background: #95a5a6;" onclick="switchView('dashboard')">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- DATA STATE (Local Memory) ---
+        let patients = [
+            { patient_id: 1, first_name: "John", last_name: "Doe", date_of_birth: "1985-05-12", gender: "Male", phone: "555-0101", email: "john@example.com" },
+            { patient_id: 2, first_name: "Jane", last_name: "Smith", date_of_birth: "1992-08-24", gender: "Female", phone: "555-0202", email: "jane@example.com" },
+            { patient_id: 3, first_name: "Robert", last_name: "Wilson", date_of_birth: "1970-11-03", gender: "Male", phone: "555-0303", email: "bobw@example.com" }
+        ];
+
+        let insurance = [
+            { insurance_id: 1, patient_id: 1, provider_name: "BlueCross", policy_number: "BC-9982", coverage_type: "Full" },
+            { insurance_id: 2, patient_id: 2, provider_name: "Aetna", policy_number: "AE-1122", coverage_type: "Partial" }
+        ];
+
+        let admissions = [
+            { admission_id: 1, patient_id: 1, admission_date: "2023-10-01", discharge_date: null, admission_type: "Inpatient", reason: "Post-op recovery" }
+        ];
+
+        // --- NAVIGATION LOGIC ---
+        function switchView(viewId) {
+            // Update Navigation UI
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if(item.innerText.toLowerCase().replace(' ', '-') === viewId) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Update View Visibility
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+
+            // Refresh data for the specific view
+            renderData();
+        }
+
+        // --- RENDERING LOGIC ---
+        function renderData() {
+            renderDashboard();
+            renderPatientList();
+            populatePatientDropdown();
+        }
+
+        function renderDashboard() {
+            document.getElementById('stat-total-patients').innerText = patients.length;
+            document.getElementById('stat-active-admissions').innerText = admissions.filter(a => !a.discharge_date).length;
+
+            const tbody = document.getElementById('dashboard-recent-body');
+            tbody.innerHTML = '';
+            
+            // Combine admissions with names for activity log
+            admissions.slice().reverse().forEach(adm => {
+                const p = patients.find(x => x.patient_id == adm.patient_id);
+                const row = `<tr>
+                    <td>${adm.admission_date}</td>
+                    <td>${p ? p.first_name + ' ' + p.last_name : 'Unknown'}</td>
+                    <td>${adm.admission_type} Admission</td>
+                    <td><span class="badge">${adm.discharge_date ? 'Discharged' : 'Active'}</span></td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function renderPatientList() {
+            const tbody = document.getElementById('patient-list-body');
+            tbody.innerHTML = '';
+
+            patients.forEach(p => {
+                const ins = insurance.find(i => i.patient_id === p.patient_id);
+                const row = `<tr>
+                    <td>#${p.patient_id}</td>
+                    <td><strong>${p.first_name} ${p.last_name}</strong></td>
+                    <td>${p.date_of_birth}</td>
+                    <td>${p.gender}</td>
+                    <td>${p.phone}</td>
+                    <td>${ins ? ins.provider_name : '<span style="color:#ccc">None</span>'}</td>
+                </tr>`;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function populatePatientDropdown() {
+            const select = document.getElementById('adm-patient-id');
+            select.innerHTML = '<option value="">-- Select a Patient --</option>';
+            patients.forEach(p => {
+                select.innerHTML += `<option value="${p.patient_id}">${p.first_name} ${p.last_name}</option>`;
+            });
+        }
+
+        // --- FORM SUBMISSION ---
+        document.getElementById('admission-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const newAdm = {
+                admission_id: admissions.length + 1,
+                patient_id: parseInt(document.getElementById('adm-patient-id').value),
+                admission_date: document.getElementById('adm-date').value,
+                discharge_date: null,
+                admission_type: document.getElementById('adm-type').value,
+                reason: document.getElementById('adm-reason').value
+            };
+
+            admissions.push(newAdm);
+            alert("Admission recorded successfully!");
+            this.reset();
+            switchView('dashboard');
+        });
+
+        // Initialize view
+        renderData();
+        // Set default date to today
+        document.getElementById('adm-date').valueAsDate = new Date();
+    </script>
+</body>
+</html>
