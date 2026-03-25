@@ -1,10 +1,16 @@
--- צורה א': שימוש ב-NOT IN
-SELECT first_name, last_name, phone 
-FROM PATIENT 
-WHERE patient_id NOT IN (SELECT patient_id FROM PATIENT_INSURANCE WHERE expiration_date > CURRENT_DATE);
+SELECT EXTRACT(YEAR FROM a.admission_date) as year_part, COUNT(a.admission_id) as total_admissions
+FROM ADMISSION a
+JOIN PATIENT_ALLERGY pa ON a.patient_id = pa.patient_id
+WHERE pa.severity = 'Severe'
+GROUP BY EXTRACT(YEAR FROM a.admission_date)
+ORDER BY year_part DESC;
 
--- צורה ב': שימוש ב-LEFT JOIN (יעיל יותר לזיהוי חוסרים)
-SELECT p.first_name, p.last_name, p.phone 
-FROM PATIENT p 
-LEFT JOIN PATIENT_INSURANCE pi ON p.patient_id = pi.patient_id AND pi.expiration_date > CURRENT_DATE 
-WHERE pi.patient_id IS NULL;
+
+
+SELECT EXTRACT(YEAR FROM admission_date) as year_part, COUNT(*) as total_admissions
+FROM ADMISSION
+WHERE patient_id IN (
+    SELECT patient_id FROM PATIENT_ALLERGY WHERE severity = 'Severe'
+)
+GROUP BY EXTRACT(YEAR FROM admission_date)
+ORDER BY year_part DESC;
