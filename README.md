@@ -68,6 +68,6 @@ mockarooFiles
 
 
 שלב ב'
-[מיניפ שלב ב'](./StepB/StepB_minip.pdf)
+[מיניפ שלב ב'](./'Step B'/StepB_minip.pdf)
 
 
