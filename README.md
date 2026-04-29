@@ -534,7 +534,7 @@ WHERE patient_id IN (
 
 ![M1](Step%20B/screenshot/u3_3.png)
 
-__ROLLBACK__
+**ROLLBACK**
 
 
 	1.
@@ -554,7 +554,7 @@ __ROLLBACK__
 
 
 
-__COMMIT__
+**COMMIT**
 
 
 	1.
