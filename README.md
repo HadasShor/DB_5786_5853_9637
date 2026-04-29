@@ -43,7 +43,7 @@ __הפונקציונאליות העיקרית__:
 
 __המסכים שלנו__:
 
-![M1](StepA/screenshot/1_1.png)
+![M1](Step%20A/screenshot/1_1.png)
 
 
 
