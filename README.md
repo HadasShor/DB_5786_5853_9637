@@ -538,19 +538,19 @@ WHERE patient_id IN (
 
 
 	1.
-	![M1](Step%20B/screenshot/r1_1.png)
+![M1](Step%20B/screenshot/r1_1.png)
 
 	2.
-	![M1](Step%20B/screenshot/r1_2.png)
+![M1](Step%20B/screenshot/r1_2.png)
 
 	3.
-	![M1](Step%20B/screenshot/r1_3.png)
+![M1](Step%20B/screenshot/r1_3.png)
 
 	4.
-	![M1](Step%20B/screenshot/r1_4.png)
+![M1](Step%20B/screenshot/r1_4.png)
 
 	5.
-	![M1](Step%20B/screenshot/r1_5.png)
+![M1](Step%20B/screenshot/r1_5.png)
 
 
 
@@ -558,16 +558,16 @@ WHERE patient_id IN (
 
 
 	1.
-	![M1](Step%20B/screenshot/c1_1.png)
+![M1](Step%20B/screenshot/c1_1.png)
 
 	2.
-	![M1](Step%20B/screenshot/c1_2.png)
+![M1](Step%20B/screenshot/c1_2.png)
 
 	3.
-	![M1](Step%20B/screenshot/c1_3.png)
+![M1](Step%20B/screenshot/c1_3.png)
 
 	4.
-	![M1](Step%20B/screenshot/c1_4.png)
+![M1](Step%20B/screenshot/c1_4.png)
 
 
 
