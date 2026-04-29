@@ -110,20 +110,27 @@ __DSD__
 
 __שיטות הכנסת נתונים__:
 __script python__
+![M1](Step%20A/screenshot/1_4.png)
 
 __Programing__
+![M1](Step%20A/screenshot/1_5.png)
 
 __mockarooFiles__
+![M1](Step%20A/screenshot/1_6.png)
+
 
 
 
 
 __גיבוי ושחזור נתונים__:
 1. 
+![M1](Step%20A/screenshot/1_7.png)
 
 2.
+![M1](Step%20A/screenshot/1_8.png)
 
 3.
+![M1](Step%20A/screenshot/1_9.png)
 
 
 
@@ -168,6 +175,13 @@ ORDER BY last_name;
 
 הרצת תוצאה:
 
+![M1](Step%20B/screenshot/s1_1.png)
+![M1](Step%20B/screenshot/s1_2.png)
+
+
+
+
+
 2.תיאור: הצגת כמות האשפוזים הכוללת שבוצעה בכל שנה, עבור מטופלים שמוגדרת להם אלרגיה ברמת חומרה 'Severe
 
 הבדל בין שתי הצורות:
@@ -201,7 +215,8 @@ ORDER BY year_part DESC;
 
 הרצת תוצאה:
 
-
+![M1](Step%20B/screenshot/s2_1.png)
+![M1](Step%20B/screenshot/s2_2.png)
 
 3.תיאור: שליפת פרטים אישיים של מטופלים שנולדו לפני שנת 1965 וסובלים מאלרגיה חמורה.
 
@@ -238,6 +253,8 @@ ORDER BY birth_year ASC;
 
 
 הרצת תוצאה:
+![M1](Step%20B/screenshot/s3_1.png)
+![M1](Step%20B/screenshot/s3_2.png)
 
 4.תיאור: ספירת כמות האשפוזים לכל שנה עבור מטופלים עם אלרגיה חמורה, תוך שימוש בפירוק תאריך לשנה.
 
@@ -266,6 +283,8 @@ ORDER BY year_part DESC;
 
 
 הרצת תוצאה:
+![M1](Step%20B/screenshot/s4_1.png)
+![M1](Step%20B/screenshot/s4_2.png)
 
 
 
@@ -282,6 +301,8 @@ ORDER BY year_part DESC;
 
 
 הרצת תוצאה:
+
+![M1](Step%20B/screenshot/s5_1.png)
 
 
 6.תיאור: השאילתא מציגה רשימת קשר (שם וטלפון) של מטופלים שביקרו בבית החולים יותר מ-3 פעמים. המידע מוצג בסדר יורד, כך שהמטופל עם הכי הרבה ביקורים מופיע ראשון.
@@ -301,7 +322,7 @@ ORDER BY count_table.total_visits DESC;
 
 הרצת תוצאה:
 
-
+![M1](Step%20B/screenshot/s6_1.png)
 
 7.תיאור: דוח רפואי מפורט המציג מטופלים הסובלים ממחלות כרוניות (Chronic) שאושפזו לפחות פעם אחת. הדוח מציג את שם המטופל, המחלה, ופירוט של שנת וחודש האבחון.
 
@@ -325,6 +346,7 @@ ORDER BY total_admissions DESC, diagnosis_year ASC;
 
 הרצת תוצאה:
 
+![M1](Step%20B/screenshot/s7_1.png)
 8.תיאור: שאילתא סטטיסטית המיועדת לממשק הניהולי, המציגה את כמות האלרגיות הרשומות לכל מטופל "ותיק" (יליד המאה ה-20). השמות מוצגים בסדר אלפביתי לפי שם משפחה.
 
 
@@ -350,6 +372,7 @@ ORDER BY p.last_name ASC;
 
 הרצת תוצאה:
 
+![M1](Step%20B/screenshot/s8_1.png)
 __שאילתות delete:__
 
 1.תיאור: שאילתא זו מבצעת "ניקוי נתונים" עבור מטופלים שנולדו אחרי שנת 2000 ושמעולם לא אושפזו בבית החולים. המטרה היא להסיר היסטוריה רפואית של אנשים שאינם נחשבים למטופלים פעילים במערכת האשפוז.
@@ -368,9 +391,14 @@ WHERE patient_id IN (
 );
 
 
+![M1](Step%20B/screenshot/d1_1.png)
+
 בסיס נתונים לפני עידכון:
 
+![M1](Step%20B/screenshot/d1_2.png)
 בסיס נתונים אחרי עידכון:
+
+![M1](Step%20B/screenshot/d1_3.png)
 
 2.תיאור: השאילתא מסירה רשומות אלרגיה מסוג 'Mild' (קלה) או 'Unknown' (לא ידועה) עבור מטופלים שנולדו לפני שנת 1990 ושיש להם לפחות 2 אלרגיות רשומות במערכת. המטרה היא לצמצם עומס מידע ב-GUI ולהתמקד באלרגיות המשמעותיות יותר אצל מטופלים אלו.
 
@@ -389,11 +417,14 @@ AND patient_id IN (
 );
 
 
+![M1](Step%20B/screenshot/d2_1.png)
 
 בסיס נתונים לפני עידכון:
+![M1](Step%20B/screenshot/d2_2.png)
 
 בסיס נתונים אחרי עידכון:
 
+![M1](Step%20B/screenshot/d2_3.png)
 
 3.תיאור: 
 שאילתא זו מבצעת עדכון למדיניות הקשר בחירום עבור מטופלים שנולדו במאה הקודמת (לפני שנת 2000), ומסירה מהמערכת אנשי קשר שהגדרת היחסים איתם היא 'Friend'. ההנחה היא שעבור מטופלים אלו המערכת דורשת אנשי קשר מדרגת קרבה משפחתית בלבד.
@@ -418,12 +449,15 @@ WHERE relationship = 'Friend'
       WHERE EXTRACT(YEAR FROM date_of_birth) < 2000
       GROUP BY patient_id
 
+![M1](Step%20B/screenshot/d3_1.png)
 
 
 בסיס נתונים לפני עידכון:
+![M1](Step%20B/screenshot/d3_2.png)
 
 בסיס נתונים אחרי עידכון:
 
+![M1](Step%20B/screenshot/d3_3.png)
 
 __שאילתות update:__
 
@@ -443,11 +477,14 @@ AND patient_id IN (
     HAVING COUNT(*) >= 1 
 );
 
+![M1](Step%20B/screenshot/u1_1.png)
 
 
 בסיס נתונים לפני עידכון:
+![M1](Step%20B/screenshot/u1_2.png)
 
 בסיס נתונים אחרי עידכון:
+![M1](Step%20B/screenshot/u1_3.png)
 
 2.תיאור: שאילתא זו מעניקה הטבה של הארכת תוקף פוליסת הביטוח בשנה אחת (365 ימים) עבור קבוצת מטופלים שנולדו ביום הראשון של חודש כלשהו. זהו סוג של "מבצע" או תהליך אוטומטי המבוסס על נתונים דמוגרפיים.
 
@@ -460,12 +497,15 @@ WHERE patient_id IN (
     WHERE EXTRACT(DAY FROM date_of_birth) = 1
     GROUP BY patient_id
 );
+![M1](Step%20B/screenshot/u2_1.png)
 
 
 
 בסיס נתונים לפני עידכון:
+![M1](Step%20B/screenshot/u2_2.png)
 
 בסיס נתונים אחרי עידכון:
+![M1](Step%20B/screenshot/u2_3.png)
 
 
 3.תיאור: שאילתא זו מעדכנת את עמודת ההערות ביומן האלרגיות של המטופלים. היא מסמנת את כל מי שאושפז במהלך חודש ינואר (לפי נתוני ה-INSERT שסיפקת ל-2024), ומנחה את הצוות לבצע אימות של האלרגיות שלהם בעקבות האשפוז האחרון.
@@ -483,26 +523,34 @@ WHERE patient_id IN (
     GROUP BY patient_id
     HAVING COUNT(*) >= 1
 );
+![M1](Step%20B/screenshot/u3_1.png)
 
 
 
 בסיס נתונים לפני עידכון:
+![M1](Step%20B/screenshot/u3_2.png)
 
 בסיס נתונים אחרי עידכון:
 
+![M1](Step%20B/screenshot/u3_3.png)
 
 __ROLLBACK__
 
 
 	1.
-	
+	![M1](Step%20B/screenshot/r1_1.png)
+
 	2.
-	
+	![M1](Step%20B/screenshot/r1_2.png)
+
 	3.
-	
+	![M1](Step%20B/screenshot/r1_3.png)
+
 	4.
-	
+	![M1](Step%20B/screenshot/r1_4.png)
+
 	5.
+	![M1](Step%20B/screenshot/r1_5.png)
 
 
 
@@ -510,8 +558,218 @@ __COMMIT__
 
 
 	1.
+	![M1](Step%20B/screenshot/c1_1.png)
 
 	2.
+	![M1](Step%20B/screenshot/c1_2.png)
+
+	3.
+	![M1](Step%20B/screenshot/c1_3.png)
+
+	4.
+	![M1](Step%20B/screenshot/c1_4.png)
+
+
+
+	אילוץ 1:
+	
+ הגדרת כתובת דואר אלקטרוני כערך ייחודי (UNIQUE)
+
+תיאור השינוי:
+במבנה הטבלאות הראשוני, העמודה email בטבלת PATIENT הוגדרה כעמודה רגילה המאפשרת הזנת נתונים ללא הגבלה על כפילויות. בעזרת פקודת ALTER TABLE, הוספתי אילוץ מסוג UNIQUE שמוודא שכל כתובת מייל במערכת תופיע פעם אחת בלבד ותהיה מקושרת למטופל אחד בלבד.
+
+
+הצורך העסקי:
+במערכת רפואית מודרנית, המייל משמש לעיתים קרובות כמזהה לצורך התחברות לאזור האישי (כפי שניתן לראות במסכי ה-GUI של המערכת) או לשליחת תוצאות בדיקות רגישות. מתן אפשרות לשני מטופלים להחזיק באותה כתובת מייל עלול לגרום לטעויות בזיהוי, פגיעה בפרטיות המטופל (שליחת מידע רפואי לאדם הלא נכון) וכפילות רשומות.
+
+פקודת ה-SQL לביצוע השינוי:
+
+
+SQL
+ALTER TABLE PATIENT 
+ADD CONSTRAINT UNQ_PATIENT_EMAIL UNIQUE (email);
+
+
+
+בדיקת האילוץ (ניסיון הכנסת נתונים סותרים):
+
+כדי להוכיח שהאילוץ עובד, נבצע שני שלבים:
+
+נכניס מטופל ראשון עם כתובת מייל מסוימת (הפעולה תצליח).
+ננסה להכניס מטופל שני (עם ת"ז שונה) אך עם אותה כתובת מייל בדיוק.
+
+
+
+SQL
+-- שלב 1: הכנסת מטופל תקין
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
+VALUES (20100, 'ישראל', 'ישראלי', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Male', '050-1111111', 'israel@example.com');
+
+-- שלב 2: ניסיון הכנסת מטופל נוסף עם אותו מייל (צפוי להיכשל)
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
+VALUES (20101, 'הדס', 'לוי', TO_DATE('1995-05-10', 'YYYY-MM-DD'), 'Female', '050-2222222', 'israel@example.com');
+תוצאה צפויה:
+המערכת תעצור את הפעולה ותציג הודעת שגיאה הדומה לזו:
+Error report - ORA-00001: unique constraint (UNQ_PATIENT_EMAIL) violated
+
+	![M1](Step%20B/screenshot/e1_1.png)
+	![M1](Step%20B/screenshot/e1_2.png)
+
+
+
+אילוץ 2: הגבלת תוקף פוליסת הביטוח (CHECK)
+
+תיאור השינוי:
+בטבלת PATIENT_INSURANCE, העמודה expiration_date מייצגת את התאריך שבו פג תוקף הכיסוי הביטוחי של המטופל. בעזרת פקודת ALTER TABLE, הוספתי אילוץ מסוג CHECK המבטיח שלא יוכנס למערכת תאריך תפוגה שחל לפני שנת 2000. אילוץ זה מוודא שהנתונים המוזנים הם רלוונטיים לתקופת הפעילות של המערכת המודרנית.
+
+
+הצורך העסקי:
+ניהול ביטוחים הוא קריטי בבית חולים לצורך כיסוי עלויות הטיפול. הזנת תאריך שגוי (למשל, שנת 1990 במקום 2030 עקב טעות הקלדה) עלולה לגרום למערכת לסמן מטופל כ"חסר כיסוי" בטעות, מה שיגרור בעיות בירוקרטיות ועיכובים בטיפול. האילוץ מהווה "שכבת הגנה" ראשונה מפני טעויות אנוש של פקידי הקבלה.
+
+
+
+פקודת ה-SQL לביצוע השינוי:
+
+SQL
+ALTER TABLE PATIENT_INSURANCE 
+ADD CONSTRAINT CHK_INSURANCE_EXP 
+CHECK (expiration_date > TO_DATE('2000-01-01', 'YYYY-MM-DD'));
+
+בדיקת האילוץ (ניסיון הכנסת נתונים סותרים):
+
+כדי להוכיח שהאילוץ פועל, ננסה להכניס פוליסת ביטוח עם תאריך תפוגה ישן מאוד (למשל משנת 1995), דבר שסותר את הכלל שהגדרנו.
+
+SQL
+-- ניסיון הכנסת ביטוח עם תאריך תפוגה שאינו חוקי (צפוי להיכשל)
+INSERT INTO PATIENT_INSURANCE (insurance_id, provider_name, policy_number, coverage_type, expiration_date, patient_id) 
+VALUES (401, 'Maccabi', 'POL-111', 'Gold', TO_DATE('1995-05-05', 'YYYY-MM-DD'), 1);
+
+
+תוצאה צפויה:
+בסיס הנתונים יזהה שהתאריך אינו עומד בתנאי ה-CHECK ויחסום את הפעולה עם הודעת שגיאה:
+Error report - ORA-02290: check constraint (CHK_INSURANCE_EXP) violated
+![M1](Step%20B/screenshot/e2_1.png)
+![M1](Step%20B/screenshot/e2_2.png)
+
+אילוץ 3:
+הגבלת תאריך לידה לעבר (chk_patient_dob)
+
+תיאור האילוץ:
+אילוץ זה הוגדר בטבלת PATIENT מסוג CHECK. הוא מוודא שכל תאריך לידה שמוזן למערכת יהיה קטן מהתאריך הנוכחי (CURRENT_DATE).
+
+הצורך העסקי:
+מניעת שגיאות לוגיות חמורות שבהן מוזן בטעות תאריך לידה עתידי. במערכת לניהול בית חולים, לא ניתן לרשום מטופל שטרם נולד. הבטחת תקינות התאריך קריטית לחישובי גיל, למתן מינונים תרופתיים נכונים ולדוחות סטטיסטיים (כמו אלו שמוצגים בגרפים ב-GUI שלך).
+
+ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
+ננסה להכניס מטופל חדש עם תאריך לידה עתידי (שנת 2099):
+
+
+
+SQL
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone) 
+VALUES (555, 'מטופל', 'עתידי', TO_DATE('2099-01-01', 'YYYY-MM-DD'), 'Male', '050-0000000');
+
+
+
+תוצאת שגיאה מצופה:
+Error report - ORA-02290: check constraint (CHK_PATIENT_DOB) violated
+![M1](Step%20B/screenshot/e3_1.png)
+
+
+
+אילוץ 4:
+הגבלת ערכי מגדר (chk_patient_gender)
+
+תיאור האילוץ:
+בטבלת PATIENT קיים אילוץ CHECK המגביל את העמודה gender לערכים ספציפיים בלבד: 'Male', 'Female', או 'Other'.
+
+הצורך העסקי:
+שמירה על סטנדרטיזציה של הנתונים. אם כל פקיד יכתוב מגדר בצורה אחרת (למשל: 'M', 'Man', 'זכר'), לא נוכל להפיק דוחות סטטיסטיים מדויקים (כמו אלו שרואים בגרפים ב-GUI שלך).
+
+
+ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
+ננסה להכניס ערך שלא קיים ברשימה המותרת:
+
+
+SQL
+INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone) 
+VALUES (502, 'Test', 'Gender', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Unknown', '050-0000000');
+תוצאת שגיאה מצופה: check constraint (CHK_PATIENT_GENDER) violated.
+![M1](Step%20B/screenshot/e3_1.png)
+
+
+אילוץ 5:
+הגבלת רמת חומרת אלרגיה (chk_allergy_sev)
+
+תיאור האילוץ:
+אילוץ CHECK בטבלת PATIENT_ALLERGY המאפשר להזין בעמודת ה-severity אך ורק את הערכים הבאים: 'Mild', 'Moderate', 'Severe', או 'Unknown'.
+
+הצורך העסקי:
+מידע על חומרת אלרגיה הוא מציל חיים. האילוץ מבטיח שהצוות הרפואי משתמש בטרמינולוגיה מקצועית אחידה. הדבר מאפשר למערכת (בצד ה-GUI) להקפיץ התראות אדומות ובולטות רק עבור מקרים המוגדרים כ-'Severe', מה שמונע "עייפות התראות" ומבטיח טיפול מיידי במקרים מסכני חיים.
+
+
+ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
+ננסה להכניס אלרגיה עם רמת חומרה שאינה חוקית לפי האילוץ:
+
+
+
+SQL
+INSERT INTO PATIENT_ALLERGY (allergy_id, allergy_name, severity, patient_id) 
+VALUES (777, 'Penicillin', 'Very-High', 999999);
+תוצאת שגיאה מצופה:
+Error report - ORA-02290: check constraint (CHK_ALLERGY_SEV) violated
+
+![M1](Step%20B/screenshot/e5_1.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
