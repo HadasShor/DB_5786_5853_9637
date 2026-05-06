@@ -132,7 +132,7 @@ WHERE patient_id IN (
     WHERE EXTRACT(YEAR FROM admission_date) = 2024
 )
 ORDER BY last_name;
-
+```
 -- אפשרות 2: שימוש ב-JOIN (הצורה היעילה יותר)
 SELECT DISTINCT p.first_name, p.last_name, p.email
 FROM PATIENT p
