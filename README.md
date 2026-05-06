@@ -173,6 +173,7 @@ WHERE patient_id IN (
 )
 GROUP BY EXTRACT(YEAR FROM admission_date)
 ORDER BY year_part DESC;
+```
 
 
 ![M1](Step%20B/screenshot/s2_1.png)
@@ -207,7 +208,7 @@ WHERE p.date_of_birth < TO_DATE('1965-01-01', 'YYYY-MM-DD')
   AND pa.severity = 'Severe'
 GROUP BY p.patient_id, p.first_name, p.last_name, p.phone, p.date_of_birth
 ORDER BY birth_year ASC;
-
+```
 
 ![M1](Step%20B/screenshot/s3_1.png)
 ![M1](Step%20B/screenshot/s3_2.png)
@@ -235,6 +236,7 @@ FROM ADMISSION a
 WHERE EXISTS (SELECT 1 FROM PATIENT_ALLERGY pa WHERE pa.patient_id = a.patient_id AND pa.severity = 'Severe')
 GROUP BY EXTRACT(YEAR FROM a.admission_date)
 ORDER BY year_part DESC;
+```
 
 ![M1](Step%20B/screenshot/s4_1.png)
 ![M1](Step%20B/screenshot/s4_2.png)
@@ -252,6 +254,7 @@ HAVING COUNT(a.admission_id) > (
     SELECT AVG(cnt) 
     FROM (SELECT COUNT(*) as cnt FROM ADMISSION GROUP BY patient_id)
 );
+```
 
 ![M1](Step%20B/screenshot/s5_1.png)
 **6. תיאור:** השאילתא מציגה רשימת קשר (שם וטלפון) של מטופלים שביקרו בבית החולים יותר מ-3 פעמים. המידע מוצג בסדר יורד, כך שהמטופל עם הכי הרבה ביקורים מופיע ראשון.
@@ -267,6 +270,7 @@ JOIN (
     HAVING COUNT(*) > 3
 ) AS count_table ON p.patient_id = count_table.patient_id
 ORDER BY count_table.total_visits DESC;
+```
 
 ![M1](Step%20B/screenshot/s6_1.png)
 **7. תיאור:** דוח רפואי מפורט המציג מטופלים הסובלים ממחלות כרוניות (Chronic) שאושפזו לפחות פעם אחת. הדוח מציג את שם המטופל, המחלה, ופירוט של שנת וחודש האבחון.
@@ -285,8 +289,10 @@ WHERE pmh.condition LIKE '%Chronic%'
   AND p.patient_id IN (SELECT patient_id FROM ADMISSION)
 GROUP BY p.first_name, p.last_name, pmh.condition, pmh.diagnosis_date, p.patient_id
 ORDER BY total_admissions DESC, diagnosis_year ASC;
+```
+![M1](Step%20B/screenshot/s7_1.png)
 
-![M1](Step%20B/screenshot/s7_1.png)**8. תיאור:** שאילתא סטטיסטית המיועדת לממשק הניהולי, המציגה את כמות האלרגיות הרשומות לכל מטופל "ותיק" (יליד המאה ה-20). השמות מוצגים בסדר אלפביתי לפי שם משפחה.
+**8. תיאור:** שאילתא סטטיסטית המיועדת לממשק הניהולי, המציגה את כמות האלרגיות הרשומות לכל מטופל "ותיק" (יליד המאה ה-20). השמות מוצגים בסדר אלפביתי לפי שם משפחה.
 
 **קוד:**
 
@@ -306,6 +312,7 @@ WHERE p.patient_id IN (
 )
 GROUP BY p.first_name, p.last_name, p.date_of_birth
 ORDER BY p.last_name ASC;
+```
 
 ![M1](Step%20B/screenshot/s8_1.png)
 
@@ -325,7 +332,7 @@ WHERE patient_id IN (
     GROUP BY p.patient_id
     HAVING COUNT(a.admission_id) = 0
 );
-
+```
 
 ![M1](Step%20B/screenshot/d1_1.png)
 
@@ -351,7 +358,7 @@ AND patient_id IN (
     GROUP BY pa.patient_id
     HAVING COUNT(pa.allergy_name) >= 2
 );
-
+```
 
 ![M1](Step%20B/screenshot/d2_1.png)
 
@@ -376,7 +383,7 @@ WHERE relationship = 'Friend'
       WHERE EXTRACT(YEAR FROM date_of_birth) < 2000
       GROUP BY patient_id
   );
-
+```
 
 ![M1](Step%20B/screenshot/d3_1.png)
 
@@ -404,7 +411,7 @@ AND patient_id IN (
     HAVING COUNT(*) >= 1 
 );
 
-
+```
 ![M1](Step%20B/screenshot/u1_1.png)
 
 
@@ -453,7 +460,7 @@ WHERE patient_id IN (
     GROUP BY patient_id
     HAVING COUNT(*) >= 1
 );
-
+```
 
 ![M1](Step%20B/screenshot/u3_1.png)
 
@@ -519,10 +526,10 @@ WHERE patient_id IN (
 ---
 
 ### פקודת ה-SQL לביצוע השינוי:
-
+```sql
 ALTER TABLE PATIENT 
 ADD CONSTRAINT UNQ_PATIENT_EMAIL UNIQUE (email);
-
+```
 ---
 
 ### בדיקת האילוץ (ניסיון הכנסת נתונים סותרים):
@@ -533,12 +540,16 @@ ADD CONSTRAINT UNQ_PATIENT_EMAIL UNIQUE (email);
 2. ננסה להכניס מטופל שני (עם ת"ז שונה) אך עם אותה כתובת מייל בדיוק.
 
 -- שלב 1: הכנסת מטופל תקין
+```sql
 INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
 VALUES (20100, 'ישראל', 'ישראלי', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Male', '050-1111111', 'israel@example.com');
+```
 
 -- שלב 2: ניסיון הכנסת מטופל נוסף עם אותו מייל (צפוי להיכשל)
+```sql
 INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone, email) 
 VALUES (20101, 'הדס', 'לוי', TO_DATE('1995-05-10', 'YYYY-MM-DD'), 'Female', '050-2222222', 'israel@example.com');
+```
 
 ---
 
@@ -569,11 +580,11 @@ Error report - ORA-00001: unique constraint (UNQ_PATIENT_EMAIL) violated
 ---
 
 ### פקודת ה-SQL לביצוע השינוי:
-
+```sql
 ALTER TABLE PATIENT_INSURANCE 
 ADD CONSTRAINT CHK_INSURANCE_EXP 
 CHECK (expiration_date > TO_DATE('2000-01-01', 'YYYY-MM-DD'));
-
+```
 ---
 
 ### בדיקת האילוץ (ניסיון הכנסת נתונים סותרים):
@@ -581,9 +592,10 @@ CHECK (expiration_date > TO_DATE('2000-01-01', 'YYYY-MM-DD'));
 כדי להוכיח שהאילוץ פועל, ננסה להכניס פוליסת ביטוח עם תאריך תפוגה ישן מאוד (למשל משנת 1995), דבר שסותר את הכלל שהגדרנו.
 
 -- ניסיון הכנסת ביטוח עם תאריך תפוגה שאינו חוקי (צפוי להיכשל)
+```sql
 INSERT INTO PATIENT_INSURANCE (insurance_id, provider_name, policy_number, coverage_type, expiration_date, patient_id) 
 VALUES (401, 'Maccabi', 'POL-111', 'Gold', TO_DATE('1995-05-05', 'YYYY-MM-DD'), 1);
-
+```
 ---
 
 ### תוצאה צפויה:
@@ -615,10 +627,10 @@ Error report - ORA-02290: check constraint (CHK_INSURANCE_EXP) violated
 ### ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
 
 ננסה להכניס מטופל חדש עם תאריך לידה עתידי (שנת 2099):
-
+```sql
 INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone) 
 VALUES (555, 'מטופל', 'עתידי', TO_DATE('2099-01-01', 'YYYY-MM-DD'), 'Male', '050-0000000');
-
+```
 ---
 
 ### תוצאת שגיאה מצופה:
@@ -647,10 +659,10 @@ Error report - ORA-02290: check constraint (CHK_PATIENT_DOB) violated
 ### ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
 
 ננסה להכניס ערך שלא קיים ברשימה המותרת:
-
+```sql
 INSERT INTO PATIENT (patient_id, first_name, last_name, date_of_birth, gender, phone) 
 VALUES (502, 'Test', 'Gender', TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'Unknown', '050-0000000');
-
+```
 ---
 
 ### תוצאת שגיאה מצופה:
@@ -678,10 +690,10 @@ check constraint (CHK_PATIENT_GENDER) violated
 ### ניסיון הכנסת נתונים סותרים (יצירת שגיאה):
 
 ננסה להכניס אלרגיה עם רמת חומרה שאינה חוקית לפי האילוץ:
-
+```sql
 INSERT INTO PATIENT_ALLERGY (allergy_id, allergy_name, severity, patient_id) 
 VALUES (777, 'Penicillin', 'Very-High', 999999);
-
+```
 ---
 
 ### תוצאת שגיאה מצופה:
@@ -689,56 +701,3 @@ VALUES (777, 'Penicillin', 'Very-High', 999999);
 Error report - ORA-02290: check constraint (CHK_ALLERGY_SEV) violated
 
 ![M1](Step%20B/screenshot/e5_1.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
