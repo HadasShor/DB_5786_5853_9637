@@ -425,6 +425,8 @@ WHERE patient_id IN (
     WHERE EXTRACT(DAY FROM date_of_birth) = 1
     GROUP BY patient_id
 );
+```
+
 
 ![M1](Step%20B/screenshot/u2_1.png)
 
