@@ -1,10 +1,10 @@
 הDSD של האגף החדש: 
 
-![M2](Step%20C/screenshots/DSD.png)
+![M2](step%20C/screenshots/DSD.png)
 
 ה ERD של האגף החדש:
 
-![M2](Step%20C/screenshots/01.png)
+![M2](step%20C/screenshots/01.png)
 
 
 ה ERD משותף:
