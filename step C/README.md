@@ -1,6 +1,6 @@
 הDSD של האגף החדש: 
 
-![M2](step%20C/screenshots/DSD.png)
+![M2](screenshots/DSD.png)
 
 ה ERD של האגף החדש:
 
@@ -34,7 +34,7 @@
 השתמשנו ב-IMPORT FOREIGN SCHEMA כדי למשוך את כל מבנה הטבלאות של השותף לסכימה המקומית שלנו באופן אוטומטי.
 
 
-תמונה 2
+![M2](screenshots/02.png)
 
 
 ## מבט 1 patient_admission_summary
@@ -47,12 +47,12 @@
 
 
 
-תמונה 3
+![M2](screenshots/03.png)
 
 ## מבט 2 partner_clinic_view
 
 
-תמונה 4
+![M2](screenshots/04.png)
 
 
 
@@ -70,12 +70,12 @@
 
 
 
-תמונה 5
+![M2](screenshots/05.png)
 
 ## מבט 3: integrated_patient_staff_view
 
 
-תמונה 6
+![M2](screenshots/06.png)
 
 
 
@@ -86,7 +86,7 @@
 
 
 
-תמונה 7
+![M2](screenshots/07.png)
 
 # שאילתות על המבטים
 
@@ -105,7 +105,7 @@ SELECT * FROM public.patient_admission_summary;
 
 
 
-תמונה 8
+![M2](screenshots/08.png)
 
 
 ## שאילתה 2 (על מבט 1):
@@ -129,7 +129,7 @@ ORDER BY total_admissions DESC;
 
 
 
-תמונה 9
+![M2](screenshots/09.png)
 
 ## שאילתה 3 (על מבט 2):
 
@@ -148,7 +148,7 @@ WHERE specialization = 'Cardiology';
 
 
 
-תמונה 10
+![M2](screenshots/010.png)
 
 
 
@@ -171,7 +171,7 @@ GROUP BY location;
 
 
 
-תמונה 11
+![M2](screenshots/011.png)
 
 
 ## שאילתה 5 (על מבט 3):
@@ -191,7 +191,7 @@ WHERE partner_specialization = 'Cardiology';
 ```
 
 
-תמונה 12
+![M2](screenshots/012.png)
 
 
 
@@ -213,7 +213,7 @@ GROUP BY partner_doc_id;
 
 
 
-תבונה 13
+![M2](screenshots/013.png)
 
 
 # קבצי הפרויקט
