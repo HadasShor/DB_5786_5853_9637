@@ -166,7 +166,7 @@ GROUP BY location;
 ```
 
 פלט:
-```
+
 
 
 
