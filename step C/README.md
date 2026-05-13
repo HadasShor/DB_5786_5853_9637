@@ -188,7 +188,7 @@ WHERE partner_specialization = 'Cardiology';
 ```
 
 פלט:
-```
+
 
 
 ![M2](screenshots/012.png)
@@ -209,7 +209,7 @@ GROUP BY partner_doc_id;
 ```
 
 פלט:
-```
+
 
 
 
