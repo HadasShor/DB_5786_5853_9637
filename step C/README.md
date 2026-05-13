@@ -2,7 +2,7 @@
 
 ה ERD של האגף החדש:
 
-תמונה 1
+![M1](Step%20Cscreenshots/01.png)
 
 
 ה ERD משותף:
