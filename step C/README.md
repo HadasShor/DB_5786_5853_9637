@@ -1,4 +1,6 @@
-הDSD של האגף החדש:  
+הDSD של האגף החדש: 
+
+![M2](Step%20C/screenshots/DSD.png)
 
 ה ERD של האגף החדש:
 
