@@ -81,11 +81,10 @@ $$;
 **הוכחה שהפונקציה עבדה (צילום מסך):**
 - צילום מסך של הרצה שמחזירה תוצאות (כולל `FETCH` מה‑cursor)
 
-![TODO - fn_patient_admissions_refcursor run](screenshots/TODO_fn_patient_admissions_refcursor_run.png)
-
+![M2](screenshots/01.png)
 - צילום מסך של חריגה (ניסיון להריץ עם `patient_id` שלא קיים)
 
-![TODO - fn_patient_admissions_refcursor exception](screenshots/TODO_fn_patient_admissions_refcursor_exception.png)
+![M2](screenshots/02.png)
 
 ---
 
@@ -159,7 +158,7 @@ $$;
 
 **הוכחה שהפונקציה עבדה (צילום מסך):**
 
-![TODO - fn_patient_risk_score output](screenshots/TODO_fn_patient_risk_score_output.png)
+![M2](screenshots/03.png)
 
 ---
 
@@ -234,15 +233,15 @@ $$;
 **הוכחה שהפרוצדורה עבדה (צילום מסך):**
 - צילום “לפני” (SELECT שמראה אשפוזים פתוחים ישנים)
 
-![TODO - sp_close_long_open_admissions before](screenshots/TODO_sp_close_long_open_admissions_before.png)
+![M2](screenshots/04.png)
 
 - צילום של הרצת `CALL ...`
 
-![TODO - sp_close_long_open_admissions call](screenshots/TODO_sp_close_long_open_admissions_call.png)
+![M2](screenshots/05.png)
 
 - צילום “אחרי” (SELECT שמראה ש־`discharge_date` התעדכן, וגם `patient_allergy.notes` עודכן)
 
-![TODO - sp_close_long_open_admissions after](screenshots/TODO_sp_close_long_open_admissions_after.png)
+![M2](screenshots/06.png)
 
 ---
 
@@ -309,15 +308,15 @@ $$;
 **הוכחה שהפרוצדורה עבדה (צילום מסך):**
 - צילום “לפני” (SELECT על `partner_data.staff_integration_map` לרופאי Cardiology)
 
-![TODO - sp_update_integration_notes before](screenshots/TODO_sp_update_integration_notes_before.png)
+![M2](screenshots/07.png)
 
 - צילום של `CALL public.sp_update_integration_notes_for_specialization('Cardiology');`
 
-![TODO - sp_update_integration_notes call](screenshots/TODO_sp_update_integration_notes_call.png)
+![M2](screenshots/08.png)
 
 - צילום “אחרי” (SELECT שמראה ש־`integration_notes` השתנה)
 
-![TODO - sp_update_integration_notes after](screenshots/TODO_sp_update_integration_notes_after.png)
+![M2](screenshots/09.png)
 
 ---
 
@@ -383,15 +382,15 @@ EXECUTE FUNCTION public.trgfn_patient_allergy_severe_after_update();
 **הוכחה שהטריגר עבד (צילום מסך):**
 - צילום של UPDATE בטבלת `patient_allergy` שמשנה `severity` ל־`Severe`
 
-![TODO - trg_patient_allergy update](screenshots/TODO_trg_patient_allergy_update.png)
+![M2](screenshots/010.png)
 
 - צילום שמראה ש־`patient_allergy.notes` עודכן
 
-![TODO - trg_patient_allergy notes changed](screenshots/TODO_trg_patient_allergy_notes.png)
+![M2](screenshots/011.png)
 
 - צילום שמראה שנוספה שורה ב־`patient_medical_history`
 
-![TODO - trg_patient_allergy inserted history](screenshots/TODO_trg_patient_allergy_history_insert.png)
+![M2](screenshots/012.png)
 
 ---
 
@@ -437,7 +436,7 @@ EXECUTE FUNCTION public.trgfn_admission_validate_before_write();
 **הוכחה שהטריגר עבד (צילום מסך):**
 - צילום של ניסיון INSERT/UPDATE שמפר את הכללים ומציג חריגה
 
-![TODO - trg_admission_validate exception](screenshots/TODO_trg_admission_validate_exception.png)
+![M2](screenshots/013.png)
 
 ---
 
@@ -476,7 +475,7 @@ $$;
 **הוכחה (צילום מסך):**
 - צילום של הפלט (NOTICE) + הוכחת עדכון בדאטה אחרי הפרוצדורה
 
-![TODO - main_refcursor_and_close_admissions](screenshots/TODO_main_refcursor_and_close_admissions.png)
+![M2](screenshots/m1.png)
 
 ---
 
@@ -506,6 +505,6 @@ $$;
 
 **הוכחה (צילום מסך):**
 
-![TODO - main_risk_and_integration](screenshots/TODO_main_risk_and_integration.png)
+![M2](screenshots/m2.png)
 
 
