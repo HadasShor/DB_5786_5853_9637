@@ -1,3 +1,5 @@
+-- טריגר 1: trg_admission_validate_before_write
+-- חוסם תאריך אשפוז עתידי, אשפוז חירום ללא סיבה, ותאריך שחרור לפני תאריך קליטה
 CREATE OR REPLACE FUNCTION public.trgfn_admission_validate_before_write()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -30,4 +32,3 @@ CREATE TRIGGER trg_admission_validate_before_write
 BEFORE INSERT OR UPDATE ON public.admission
 FOR EACH ROW
 EXECUTE FUNCTION public.trgfn_admission_validate_before_write();
-

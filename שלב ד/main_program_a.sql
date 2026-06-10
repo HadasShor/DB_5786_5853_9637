@@ -1,3 +1,4 @@
+-- תוכנית ראשית א': Ref Cursor + סגירת אשפוזים ישנים
 DO $$
 DECLARE
   p_id numeric;

@@ -1,3 +1,5 @@
+-- פרוצדורה 1: sp_close_long_open_admissions
+-- סוגרת אשפוזים פתוחים ישנים באמצעות Explicit Cursor ומבצעת DML נוסף על אלרגיות
 CREATE OR REPLACE PROCEDURE public.sp_close_long_open_admissions(p_days integer)
 LANGUAGE plpgsql
 AS $$
@@ -52,4 +54,3 @@ BEGIN
   RAISE NOTICE 'Total admissions closed: %', v_closed_count;
 END;
 $$;
-

@@ -1,3 +1,5 @@
+-- פרוצדורה 2: sp_update_integration_notes_for_specialization
+-- מסנכרנת הערות אינטגרציה בטבלת המיפוי המקומית לפי התמחות רופא מהאגף החיצוני
 CREATE OR REPLACE PROCEDURE public.sp_update_integration_notes_for_specialization(p_specialization text)
 LANGUAGE plpgsql
 AS $$
@@ -46,4 +48,3 @@ BEGIN
   RAISE NOTICE 'Total integration mappings updated: %', v_updated_count;
 END;
 $$;
-
