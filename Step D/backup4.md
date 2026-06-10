@@ -5,7 +5,8 @@
 כדי לייצר את קובץ ההגשה `backup4.sql` אצלך אחרי שהרצת את כל קבצי שלב ד', הריצי (בדוגמה):
 
 ```bash
-pg_dump -h localhost -p 5432 -U Myuser -d <YOUR_DB_NAME> -F p -f "backup4.sql"
+pg_dump -h localhost -p 5432 -U Myuser -d PATIENT_MANAGEMENT -F p -f "backup4.sql"
+
 ```
 
 ולאחר מכן שימי את `backup4.sql` בתוך תיקיית `שלב ד`.

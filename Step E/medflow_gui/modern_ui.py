@@ -179,13 +179,22 @@ class ModernMedFlowApp(ctk.CTkFrame):
 
         def do_connect() -> None:
             try:
+                # cfg2 = DbConfig(
+                #     host=vars_["host"].get().strip(),
+                #     port=_safe_int(vars_["port"].get(), 5432),
+                #     database=vars_["db"].get().strip(),
+                #     user=vars_["user"].get().strip(),
+                #     password=vars_["pass"].get(),
+                # )
+
                 cfg2 = DbConfig(
-                    host=vars_["host"].get().strip(),
-                    port=_safe_int(vars_["port"].get(), 5432),
-                    database=vars_["db"].get().strip(),
-                    user=vars_["user"].get().strip(),
-                    password=vars_["pass"].get(),
+                    host="localhost",
+                    port=5432,
+                    database="PATIENT_MANAGEMENT",
+                    user="Myuser",
+                    password="pas1234",
                 )
+                
                 self.conn = connect(cfg2)
                 self._render_shell()
             except Exception as e:
@@ -374,7 +383,7 @@ class ModernMedFlowApp(ctk.CTkFrame):
         root = ctk.CTkFrame(host, fg_color="transparent")
         root.columnconfigure(0, weight=1)
         root.columnconfigure(1, weight=0)
-        root.rowconfigure(1, weight=1)
+        root.rowconfigure(0, weight=1)
 
         left = ctk.CTkFrame(root, fg_color=Palette.surface, corner_radius=18, border_width=1, border_color=Palette.border)
         left.grid(row=0, column=0, rowspan=2, sticky="nsew", padx=(0, 10))
@@ -414,10 +423,18 @@ class ModernMedFlowApp(ctk.CTkFrame):
                 textbox.configure(state="disabled")
 
         right = ctk.CTkFrame(root, fg_color="transparent")
-        right.grid(row=0, column=1, sticky="new")
+        right.grid(row=0, column=1, rowspan=2, sticky="nsew")
 
-        form = ctk.CTkFrame(right, fg_color=Palette.surface, corner_radius=18, border_width=1, border_color=Palette.border)
-        form.pack(fill="x")
+        # CTkScrollableFrame - מאפשר גלילה כשיש הרבה שדות
+        form = ctk.CTkScrollableFrame(
+            right,
+            fg_color=Palette.surface,
+            corner_radius=18,
+            border_width=1,
+            border_color=Palette.border,
+            height=500,
+        )
+        form.pack(fill="both", expand=True)
 
         ctk.CTkLabel(form, text=f"{title} • CRUD", text_color=Palette.text, font=ctk.CTkFont(size=16, weight="bold")).pack(
             anchor="w", padx=16, pady=(14, 0)
